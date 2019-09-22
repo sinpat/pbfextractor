@@ -436,6 +436,8 @@ impl EdgeFilter for BicycleEdgeFilter {
             | Some("raceway")
             | Some("rest_area")
             | Some("construction")
+            | Some("primary")
+            | Some("primary_link")
             | None => true,
             _ => false,
         }
