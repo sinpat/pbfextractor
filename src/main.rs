@@ -68,16 +68,18 @@ fn main() {
 
     let _random = Rc::new(RandomWeights);
 
-    let internal_only_metrics: InternalMetrics = vec![].into_iter().collect();
+    let unsuitability = Rc::new(BicycleUnsuitability);
 
-    let tag_metrics: TagMetrics = vec![];
-    let node_metrics: NodeMetrics = vec![dist];
-    let cost_metrics: CostMetrics = vec![];
+    let internal_only_metrics: InternalMetrics = vec![unsuitability.name()].into_iter().collect();
+
+    let tag_metrics: TagMetrics = vec![unsuitability.clone()];
+    let node_metrics: NodeMetrics = vec![dist.clone(), Rc::new(HeightAscent)];
+    let cost_metrics: CostMetrics = vec![Rc::new(UnsuitDistMetric::new(dist, unsuitability))];
 
     let l = pbf::Loader::new(
         pbf_input,
         srtm_input,
-        CarEdgeFilter,
+        BicycleEdgeFilter,
         tag_metrics,
         node_metrics,
         cost_metrics,
