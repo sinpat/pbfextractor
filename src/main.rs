@@ -69,10 +69,11 @@ fn main() {
     let _random = Rc::new(RandomWeights);
 
     let unsuitability = Rc::new(BicycleUnsuitability);
+    let edge_count = Rc::new(EdgeCount);
 
     let internal_only_metrics: InternalMetrics = vec![unsuitability.name()].into_iter().collect();
 
-    let tag_metrics: TagMetrics = vec![unsuitability.clone()];
+    let tag_metrics: TagMetrics = vec![unsuitability.clone(), edge_count];
     let node_metrics: NodeMetrics = vec![dist.clone(), Rc::new(HeightAscent)];
     let cost_metrics: CostMetrics = vec![Rc::new(UnsuitDistMetric::new(dist, unsuitability))];
 
